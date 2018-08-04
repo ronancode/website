@@ -1,0 +1,128 @@
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Twitter Card data -->
+	<meta name="twitter:card" content="Trance Party V">
+	<meta name="twitter:image" content="http://evianchrist.com/TPVSocial.jpg">
+
+	<!-- Open Graph data -->
+	<meta property="og:title" content="Trance Party V" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="http://evianchrist.com/trancepartyV" />
+	<meta property="og:image" content="http://evianchrist.com/TPVSocial.jpg" />
+	<meta property="og:description" content="Trance Party V" /> 
+	<meta property="og:site_name" content="Evian Christ" />
+
+	<style>
+		html {
+			height: 100%;
+		}
+		body {
+			background: black;
+			color: #fff;
+			font-size:16px;
+			margin: 0px;
+			/*overflow: hidden;*/
+			/*text-align: center;*/
+			/*cursor: none;*/
+			display: flex;
+			align-items: center;
+			-webkit-user-select: none;
+
+		}
+		a{
+			text-decoration: none;
+			color: inherit;
+		}
+		#container{
+			margin: 0 auto;
+			width: 100vw;
+			/*position: fixed;*/
+			display: flex;
+		    flex-direction: column;
+		    justify-content: center;
+		}
+		#container canvas{
+			display: flex;
+			justify-content: center;
+		}
+		#webgl-container{
+			display: flex;
+			width: 100vw;
+
+			justify-content: center;
+		}
+		.main{
+			width: 100vw;
+			height: 100vh;
+		    display: flex;
+		    justify-content: center;
+		    align-items: flex-start;
+		}
+		.bottom{
+			width: 100vw;
+			height: auto;
+			/*position: absolute;*/
+			/*top: 100vh;*/
+			background: black;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		}
+		.bottom img{
+			width: 100%;
+			height: auto;
+		}
+		#loadingGFX{
+		    width: 100vw;
+		    height: 100vh;
+		    position: absolute;
+		    background: black;
+		}
+		#loadingGFX img {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-webkit-transform: translate(-50%, -50%);
+			   -moz-transform: translate(-50%, -50%);
+			    -ms-transform: translate(-50%, -50%);
+			     -o-transform: translate(-50%, -50%);
+			        transform: translate(-50%, -50%);
+		}
+		::-webkit-scrollbar {
+			display: none;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="loadingGFX">
+		<img src="img/ring.svg" alt="">
+	</div>
+	<div class="main">
+		<div id="container">
+			<div id="webgl-container">
+				
+			</div>
+			<a target="_blank" href="http://bit.ly/trancepartyVra" >
+			<div class="bottom">
+				<img src="assets/textures/bottom_text_color-compressor.png" alt="">
+			</div>
+			</a>
+		</div>
+	</div>
+	<audio id="left" loop="true" src="audio/left.mp3"></audio>
+	<audio id="right" loop="true" src="audio/right.mp3"></audio>
+	<script src="scripts/js/three.min.js"></script>
+	<script src="scripts/js/OrbitControls.js"></script>
+	<script src="scripts/js/Noise.js"></script>
+	<script src="scripts/js/Terrain.js"></script>
+	<script src="scripts/js/Water.js"></script>
+	<script src="scripts/js/Icons.js"></script>
+	<script src="scripts/js/Ink.js"></script>
+	<script src="scripts/js/InkShaders.js"></script>
+	<script src="scripts/js/dat.gui.min.js"></script>
+	<script src="scripts/js/main.js"></script>
+</body>
+</html>
