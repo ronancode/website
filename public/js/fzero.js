@@ -3,7 +3,9 @@ var camera, scene, renderer, light1, light2;
 var frustumSize = 1.5;
 var color_time = Date.now();
 var camera_time = color_time;
+var bg_time = color_time;
 var coefficient = 0.001;
+var ambientLight;
 
 init();
 animate();
@@ -80,16 +82,17 @@ function init() {
 	var onError = function ( xhr ) {
 	};
 
-	var material = new THREE.MeshLambertMaterial( { color: 0xffffff, overdraw: 0.5, opacity: 1, transparent: false } );
+	// var material = new THREE.MeshLambertMaterial( { color: 0xffffff, overdraw: 0.5, opacity: 1, transparent: false } );
+	var material = new THREE.MeshPhongMaterial( { color: 0xFFFFFF, specular: 0xFFFFFF, shininess: 200, overdraw: 0.5 } );
 	// material.ambient.setHex(0xffffff);
 
 	var loader = new THREE.OBJLoader( manager );
 	loader.load( 'http://ronanrice.com/model/blue_falcon.obj', function( object ){
-		console.log(object);
+		// console.log(object);
 		object.traverse( function ( child ) {
 			if ( child instanceof THREE.Mesh ) {
 				child.material = material;
-				// child.material.color.setHex(0x00FF00);
+				// child.material.color.setHex( Math.random() * 0xffffff );
 				// child.material.wireframe = true;
 				// child.material.color = new THREE.Color(0xFFFFFF);
 			}
@@ -106,8 +109,8 @@ function init() {
 	// Lights
 
 	// var ambientLight = new THREE.AmbientLight( Math.random() * 0x10 );
-	// var ambientLight = new THREE.AmbientLight( 0x404040 );
-	// scene.add( ambientLight );
+	ambientLight = new THREE.AmbientLight( 0x000000 );
+	scene.add( ambientLight );
 
 	light1 = new THREE.DirectionalLight( 0xFA6900 );
 	light1.position.x = Math.random() - 0.5;
@@ -178,9 +181,9 @@ function render() {
 	// camera.position.x = Math.sin( 0.001 * timer ) * 2;
 	// camera.position.y = Math.sin( 0.001 * timer ) * 2;
 	// camera.position.z = Math.cos( 0.001 * timer ) * 2;
-	camera.position.x = 2* Math.sin( 0.001 * timer ) * Math.cos( 0.001 * timer );
-	camera.position.y = 2* Math.sin( 0.001 * timer ) * Math.sin( 0.001 * timer );
-	camera.position.z = 2 * Math.cos( 0.001 * timer );
+	// camera.position.x = 2* Math.sin( 0.001 * timer ) * Math.cos( 0.001 * timer );
+	// camera.position.y = 2* Math.sin( 0.001 * timer ) * Math.sin( 0.001 * timer );
+	// camera.position.z = 2 * Math.cos( 0.001 * timer );
 	// camera.position.x = 0;
 	// camera.position.z = 1000;
 	// coefficient = coefficient + ((Math.random() - 0.5) * 0.000001);
@@ -190,6 +193,7 @@ function render() {
 	// camera.position.y = Math.cos( 0.0005 * timer ) * 1000;
 	// camera.position.z = Math.sin( 0.0003 * timer ) * 1000;
 	// camera.lookAt( scene.position );
+	object.position.y = 1;
 
 	if ((timer - color_time) > 200) {
 		light1.color.setHex( Math.random() * 0xffffff );
@@ -204,13 +208,20 @@ function render() {
 
 		color_time = Date.now();
 	}
-	// if ((timer - camera_time) > 1000) {
-	// 	camera.position.x = (Math.random()-0.5) * 4;
-	// 	camera.position.y = (Math.random()-0.5) * 4;
-	// 	camera.position.z = (Math.random()-0.5) * 4;
+	if ((timer - camera_time) > 1000) {
+		camera.position.x = (Math.random()-0.5) * 4;
+		camera.position.y = (Math.random()-0.5) * 4;
+		camera.position.z = (Math.random()-0.5) * 4;
 
-	// 	camera_time = Date.now();
-	// }
+		camera_time = Date.now();
+	}
+	if ((timer - bg_time) > 2000) {
+		var random_color = Math.random() * 0xffffff
+		scene.background = new THREE.Color( random_color );
+		ambientLight.color.setHex( random_color - 0x303030 );
+
+		bg_time = Date.now();
+	}
 
 	camera.lookAt( new THREE.Vector3(0,0.25,0) );
 
