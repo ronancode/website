@@ -1,5 +1,6 @@
 var container, stats;
 var camera, scene, renderer, light1, light2;
+var obj;
 var frustumSize = 1.5;
 var color_time = Date.now();
 var camera_time = color_time;
@@ -88,7 +89,6 @@ function init() {
 
 	var loader = new THREE.OBJLoader( manager );
 	loader.load( 'http://ronanrice.com/model/blue_falcon.obj', function( object ){
-		// console.log(object);
 		object.traverse( function ( child ) {
 			if ( child instanceof THREE.Mesh ) {
 				child.material = material;
@@ -100,11 +100,13 @@ function init() {
         // object.position.y = -0.2;
         // object.position.x = 0;
         // object.position.z = -0.3;
-        object.position.y = 0.07;
+        object.position.y = 0;
         object.position.x = 0;
         object.position.z = 0;
-		scene.add( object );
+        obj = object;
+		scene.add( obj );
 	},onProgress,onError);
+
 
 	// Lights
 
@@ -193,9 +195,8 @@ function render() {
 	// camera.position.y = Math.cos( 0.0005 * timer ) * 1000;
 	// camera.position.z = Math.sin( 0.0003 * timer ) * 1000;
 	// camera.lookAt( scene.position );
-	object.position.y = 1;
 
-	if ((timer - color_time) > 200) {
+	if ((timer - color_time) > 1000) {
 		light1.color.setHex( Math.random() * 0xffffff );
 		light1.position.x = Math.random() - 0.5;
 		light1.position.y = Math.random() - 0.5;
@@ -208,13 +209,13 @@ function render() {
 
 		color_time = Date.now();
 	}
-	if ((timer - camera_time) > 1000) {
-		camera.position.x = (Math.random()-0.5) * 4;
-		camera.position.y = (Math.random()-0.5) * 4;
-		camera.position.z = (Math.random()-0.5) * 4;
+	// if ((timer - camera_time) > 1000) {
+	// 	camera.position.x = (Math.random()-0.5) * 4;
+	// 	camera.position.y = (Math.random()-0.5) * 4;
+	// 	camera.position.z = (Math.random()-0.5) * 4;
 
-		camera_time = Date.now();
-	}
+	// 	camera_time = Date.now();
+	// }
 	if ((timer - bg_time) > 2000) {
 		var random_color = Math.random() * 0xffffff
 		scene.background = new THREE.Color( random_color );
@@ -223,7 +224,12 @@ function render() {
 		bg_time = Date.now();
 	}
 
-	camera.lookAt( new THREE.Vector3(0,0.25,0) );
+	if (obj != null) {
+		obj.rotateOnWorldAxis( new THREE.Vector3(0,1,0), Math.PI * -0.002);
+		obj.position.y = camera.position.y = (Math.sin( 0.01 * timer ) * 0.01) - 0.5;
+	}
+
+	camera.lookAt( new THREE.Vector3(0,-0.25,0) );
 
 	// else if ((timer - init_time) > 100) {
 	// 	light1.color.setHex( 0x000000 );
