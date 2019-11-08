@@ -20,6 +20,7 @@ var params = {
 
 init();
 animate();
+auido.play();
 
 function init() {
 
