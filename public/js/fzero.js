@@ -20,7 +20,6 @@ var params = {
 
 init();
 animate();
-auido.play();
 
 function init() {
 
@@ -71,7 +70,7 @@ function init() {
 	var material = new THREE.MeshPhongMaterial( { color: 0xFFFFFF, specular: 0xFFFFFF, shininess: 200, flatShading: true } );
 
 	var loader = new THREE.OBJLoader( manager );
-	loader.load( 'http://ronanrice.com/model/blue_falcon.obj', function( object ){
+	loader.load( 'ronanrice.com/model/blue_falcon.obj', function( object ){
 		object.traverse( function ( child ) {
 			if ( child instanceof THREE.Mesh ) {
 				child.material = material;

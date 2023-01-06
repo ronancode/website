@@ -17,7 +17,7 @@ var params = {
 	bloomThreshold: 0.19,
 	bloomRadius: 0.69
 };
-var svg_url = 'http://ronanrice.com/model/hardstyle-face.svg'
+var svg_url = 'https://ronanrice.com/model/hardstyle-face.svg'
 
 init();
 animate();
